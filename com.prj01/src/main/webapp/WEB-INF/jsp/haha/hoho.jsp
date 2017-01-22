@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>간단한 예제</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/test.css"/>
 </head>
 <body>
 	<div style="width:300px;height:300px;background-color:blue;color:#fff">
