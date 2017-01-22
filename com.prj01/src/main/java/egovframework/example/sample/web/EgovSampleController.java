@@ -208,5 +208,10 @@ public class EgovSampleController {
 		status.setComplete();
 		return "forward:/egovSampleList.do";
 	}
+	
+	@RequestMapping("/hoho.do")
+	public String goHohoPage() {
+		return "haha/hoho";
+	}
 
 }
