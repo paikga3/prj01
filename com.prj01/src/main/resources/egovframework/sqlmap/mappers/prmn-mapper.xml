@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Prmn">
+	<select id="shopList" resultType="afc.prmn.vo.Shop">
+		<![CDATA[ 
+			SELECT SHOP_NO, SHOP_NAME, SHOP_LOCATION, SHOP_STATUS
+			FROM
+			SHOP
+			ORDER BY SHOP_NO
+		]]>
+	</select>
+	
+	<update id="saveShopList" parameterType="afc.prmn.vo.Shop">
+		MERGE INTO SHOP A
+		USING
+		(SELECT
+		CASE WHEN A.SHOP_NO IS NULL THEN B.SHOP_NO
+		     WHEN B.SHOP_NO IS NULL THEN A.SHOP_NO
+		     WHEN A.SHOP_NO IS NOT NULL AND B.SHOP_NO IS NOT NULL THEN A.SHOP_NO
+		END
+		AS SHOP_NO,
+		A.SHOP_NAME AS SHOP_NAME,
+		A.SHOP_LOCATION AS SHOP_LOCATION,
+		A.SHOP_STATUS AS SHOP_STATUS
+		FROM
+		<foreach collection="shopList" item="shop" open="(" close=")" separator=" UNION ALL ">
+			SELECT 
+			#{shop.shopNo} AS SHOP_NO, 
+			#{shop.shopName} AS SHOP_NAME, 
+			#{shop.shopLocation} AS SHOP_LOCATION, 
+			#{shop.shopStatus} AS SHOP_STATUS
+			FROM DUAL
+		</foreach>
+		A FULL OUTER JOIN SHOP B ON A.SHOP_NO = B.SHOP_NO) T
+		ON(A.SHOP_NO = T.SHOP_NO)
+		WHEN MATCHED THEN
+		UPDATE SET 
+		A.SHOP_NAME = T.SHOP_NAME,
+		A.SHOP_LOCATION = T.SHOP_LOCATION,
+		A.SHOP_STATUS = T.SHOP_STATUS
+		DELETE WHERE(A.SHOP_NAME IS NULL)
+		WHEN NOT MATCHED THEN
+		INSERT(A.SHOP_NO, A.SHOP_NAME, A.SHOP_LOCATION, A.SHOP_STATUS)
+		VALUES(T.SHOP_NO, T.SHOP_NAME, T.SHOP_LOCATION, T.SHOP_STATUS)
+	</update>
+
+</mapper>
