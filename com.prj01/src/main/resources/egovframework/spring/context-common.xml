@@ -9,8 +9,15 @@
 
     <context:component-scan base-package="afc"/>
     <context:annotation-config/>
-    <mvc:annotation-driven/>
-
+    <mvc:annotation-driven conversion-service="conversionService"/>
+	<bean class="org.springframework.context.support.ConversionServiceFactoryBean" id="conversionService">
+		<property name="converters">
+			<set>
+				<bean class="afc.bind.cv.StringToShopListConverter"/>
+			</set>
+		</property>
+	</bean>
+	
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
@@ -57,4 +64,6 @@
 			</list>
     	</property>
     </bean>
+    
+    
 </beans>

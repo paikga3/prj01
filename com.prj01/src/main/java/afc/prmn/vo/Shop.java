@@ -38,4 +38,9 @@ public class Shop {
 	public void setShopStatus(String shopStatus) {
 		this.shopStatus = shopStatus;
 	}
+	
+	@Override
+	public String toString() {
+		return "{'shopNo':'" + getShopNo() + "','shopName':'" + getShopName() + "','shopLocation':'" + getShopLocation() + "','shopStatus':'" + getShopStatus() + "'}";
+	}
 }
