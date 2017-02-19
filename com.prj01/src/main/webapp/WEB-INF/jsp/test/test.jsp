@@ -16,7 +16,7 @@
 		$('#tt').on('input', function(e) {
 			$('#tt').attr('readonly', true);
 			var inputVal = $('#tt').val();
-            $('#tt').val(inputVal.replace(/[^0-9]/gi,''));
+			$('#tt').val(inputVal.replace(/[^0-9]/gi,''));
 			$('#tt').removeAttr('readonly');
 			
 		});
