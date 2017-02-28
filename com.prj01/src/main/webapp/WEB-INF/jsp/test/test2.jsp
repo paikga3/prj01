@@ -24,13 +24,27 @@
 				alert(image.width);
 			};
 		});
+		
+		var str = '<p style="width:100px;">오우오우 ㅋ 짱짱</p>';
+		
+		
+		$('#regex').click(function() {
+			var replaceStr = str.replace(/<(\/?)\w+\b((?:[^>\"\']|\"[^\"]*\"|\'[^\']*\')*)>/g, '');
+			alert(str);
+			alert(replaceStr);
+		});
 	});
-
+	
+	
+	
 </script>
 </head>
 <body>
 <input type="file" id="file" name="file" />
 <button id="btn">파일명보기 버튼</button>
 <img id="img" alt="이미지파일없음" style="display: none;"/>
+<div>
+	<button id="regex">태그치환</button>
+</div>
 </body>
 </html>
