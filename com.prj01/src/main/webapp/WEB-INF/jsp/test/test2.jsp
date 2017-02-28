@@ -25,7 +25,7 @@
 			};
 		});
 		
-		var str = '<p style="width:100px;">오우오우 ㅋ 짱짱</p>';
+		var str = '<p style="width:100px;">오우오우 ㅋㅋ 짱짱</p>';
 		
 		
 		$('#regex').click(function() {
